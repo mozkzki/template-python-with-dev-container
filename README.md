@@ -108,10 +108,15 @@ make lint
 
 ### 依存パッケージ追加
 
-用途に応じて下記ファイルに追記。
+下記ファイルに追記して`Rebuild Container`する。
 
 - `requirements.txt`
-- `test-requirements.txt`
+
+`pip install`で追加すると下記の警告が出る場合がある。`--upgrade`すると`bin`以下が消えて既に導入済みのパッケージが使えなくなる。このため上記手順が無難。
+
+```zsh
+WARNING: Target directory /home/../. already exists. Specify --upgrade to force replacement.
+```
 
 ## 参考
 

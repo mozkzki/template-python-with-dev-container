@@ -1,0 +1,4 @@
+pytest
+isort
+pytest-cov
+coverage
