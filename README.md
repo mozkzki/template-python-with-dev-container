@@ -1,6 +1,10 @@
 # template-python-simple-with-dev-container
 
-Python開発用テンプレート。VSCode Remote Container版 (Dockerが必要)。仮想環境は使わない。
+- Python開発用テンプレート
+  - Dockerコンテナでの開発版
+  - VSCode Remote Containerの使用を想定
+    - 設定ファイル: `.devcontainer/devcontainer.json`
+  - Pythonの仮想環境 (PoetryとかPipenvとか)は使わない
 
 | ツール種類 | ツール名 |
 |--|--|
@@ -10,7 +14,7 @@ Python開発用テンプレート。VSCode Remote Container版 (Dockerが必要)
 | フォーマッター | [black](https://github.com/psf/black) |
 | 型チェック | [mypy](https://mypy.readthedocs.io/en/stable/) |
 
-なお、dev-containerはMSの[これ](https://github.com/microsoft/vscode-dev-containers/tree/v0.191.0/containers/python-3)がベース。
+なお、devcontainerはMSの[これ](https://github.com/microsoft/vscode-dev-containers/tree/v0.191.0/containers/python-3)がベース。
 
 ## 開発環境
 
@@ -39,6 +43,8 @@ p10k configure
   - https://github.com/mozkzki/settings/tree/master/devcontainer/dotfiles
 
 ## 開発方法
+
+※ 以降のコマンドは、devcontainer (Dockerコンテナ) を起動し、そこで実行
 
 ### とりあえず一通り動確したい時
 
