@@ -1,4 +1,4 @@
-# template-python-simple-with-dev-container
+# template-python-with-dev-container
 
 - Python開発用テンプレート
   - Dockerコンテナでの開発版
@@ -21,7 +21,7 @@
 ### 導入
 
 1. VSCodeに機能拡張「Remote - Containers」をインストール
-1. `git clone git@github.com:mozkzki/template-python-simple-with-dev-container.git hoge` (※hogeはチェックアウト先ディレクトリ)
+1. `git clone git@github.com:mozkzki/template-python-with-dev-container.git hoge` (※hogeはチェックアウト先ディレクトリ)
 1. このプロジェクトを開く
 1. VSCodeの画面左下の緑ゾーンをクリック
 1. `Reopen in Container`をクリック
