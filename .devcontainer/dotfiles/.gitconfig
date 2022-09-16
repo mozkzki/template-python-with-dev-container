@@ -1,0 +1,97 @@
+[user]
+    name = mozkzki
+    email = mozkzki@gmail.com
+[pull]
+    rebase = false
+    # ff = only
+[core]
+    autocrlf = false
+    excludesfile = ~/.gitignore_global
+    pager = LESSCHARSET=utf-8 less
+    whitespace = cr-at-eol
+    symlinks = true
+    editor = code --wait
+[alias]
+    # aliasを表示
+    alias = !git config --get-regexp '^alias\\.' | sed 's/alias\\.\\([^ ]*\\) \\(.*\\)/\\1\\\t => \\2/' | sort
+
+    s = status -s
+    ss = status
+    sh = show
+    cm = commit
+    co = checkout
+    cp = cherry-pick
+    b = branch -a
+    drag = pull --rebase
+    refresh= !git fetch origin --prune
+    #----------------
+    # commit
+    #----------------
+    aa = !git add . && git status
+    wip = commit -m 'WIP'
+    amd = commit --amend
+    #----------------
+    # reset
+    #----------------
+    # ローカル変更すべて取り消し
+    reset1 = !git checkout .
+    # addの取り消し
+    reset2 = !git reset --mixed HEAD
+    # 直前のcommitのみ取り消し(index,working treeはそのまま)
+    reset3 = !git reset --soft HEAD~
+    # commitをまるっと取り消し
+    reset4 = !git reset --hard HEAD~
+    #----------------
+    # diff
+    #----------------
+    # index <-> working tree
+    d = diff
+    # index <-> working tree / ファイル名のみの差分を表示する
+    dn = diff --name-only
+    # HEAD <-> index
+    dc = diff --cached
+    # HEAD~ <-> HEAD
+    d1 = diff HEAD~ HEAD
+    # HEAD~2 <-> HEAD
+    d2 = diff HEAD~2 HEAD
+    # HEAD~3 <-> HEAD
+    d3 = diff HEAD~3 HEAD
+    # $1~ <-> $1
+    dr  = "!f() { git diff "$1"~.."$1"; }; f"
+    #----------------
+    # log
+    #----------------
+    # --oneline
+    # --decorate
+    # --all
+    lg = log --branches --date=iso --pretty=format:'%C(yellow)%h%C(magenta) %cd %C(black bold)(%cr)%Creset %s %C(green)<%cn>%C(cyan)%d' 
+    l = "!git lg --graph --all --decorate"
+    ll = log --decorate --numstat --pretty=format:"%C(yellow)%h\\ %Creset%s%C(green)\\ <%cn>%C(cyan)%d" 
+[color]
+    ui = true
+[ghq]
+    root = ~/ghq/
+
+# 巨大リポジトリをcone出来ない時
+# [core]
+#     packedGitLimit = 1g
+#     packedGitWindowSize = 1g
+# [pack]
+#     deltaCacheSize = 2047m
+#     packSizeLimit = 2047m
+#     windowMemory = 2047m
+# [http]
+#     postBuffer = 64M
+#     sslVerify = false
+#     # proxy環境のみ
+#     proxy = http://proxy.hoge.co.jp:9999
+# [https]
+#     postBuffer = 32M
+#     sslVerify = false
+#     # proxy環境のみ
+#     proxy = http://proxy.hoge.co.jp:9999
+# Win環境のみ
+# [credential]
+#     helper = wincred
+[init]
+    defaultBranch = main

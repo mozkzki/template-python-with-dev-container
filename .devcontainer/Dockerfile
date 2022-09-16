@@ -23,15 +23,18 @@ RUN if [ "${NODE_VERSION}" != "none" ]; then su vscode -c "umask 0002 && . /usr/
 #    && rm -rf /tmp/pip-tmp
 
 # [Optional] Uncomment this section to install additional OS packages.
-# RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
-#     && apt-get -y install --no-install-recommends <your-package-list-here>
+RUN apt-get update && export DEBIAN_FRONTEND=noninteractive \
+    && apt-get -y install --no-install-recommends peco
 
 # [Optional] Uncomment this line to install global node packages.
 # RUN su vscode -c "source /usr/local/share/nvm/nvm.sh && npm install -g <your-package-here>" 2>&1
 
-######################################
-# prezto導入 (zshのフレームワーク)
-######################################
+
+#
+# Customize
+#
+
+# Install Prezto. (zsh framework)
 RUN su vscode -c "git clone --recursive \
     https://github.com/sorin-ionescu/prezto.git \
     /home/vscode/.zprezto"
@@ -43,23 +46,11 @@ RUN su vscode -c "ln -s -f /home/vscode/.zprezto/runcoms/zlogin /home/vscode/.zl
     && ln -s -f /home/vscode/.zprezto/runcoms/zshrc /home/vscode/.zshrc"
 ENV SHELL /usr/bin/zsh
 
-#デフォルトのシェルをzshに変更
+# Change shell.
 RUN sudo chsh vscode -s $(which zsh)
 
-######################################
-# コマンド履歴補完
-######################################
+# Download zsh auto suggestion tool.
 RUN su vscode -c "git clone https://github.com/zsh-users/zsh-autosuggestions /home/vscode/.zsh/zsh-autosuggestions"
 
-######################################
-# copy dotfiles
-######################################
-# RUN su vscode -c "git clone https://github.com/mozkzki/settings.git /home/vscode/settings"
-RUN su vscode -c "git clone https://github.com/mozkzki/settings-for-devcontainer.git /home/vscode/settings"
-RUN su vscode -c "\cp -RT -f /home/vscode/settings/devcontainer/dotfiles /home/vscode"
-
-######################################
-# install peco
-######################################
-RUN sudo apt update
-RUN sudo apt install peco
+# Copy dotfiles.
+COPY .devcontainer/dotfiles/* /home/vscode
