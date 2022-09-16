@@ -54,7 +54,8 @@ RUN su vscode -c "git clone https://github.com/zsh-users/zsh-autosuggestions /ho
 ######################################
 # copy dotfiles
 ######################################
-RUN su vscode -c "git clone https://github.com/mozkzki/settings.git /home/vscode/settings"
+# RUN su vscode -c "git clone https://github.com/mozkzki/settings.git /home/vscode/settings"
+RUN su vscode -c "git clone https://github.com/mozkzki/settings-for-devcontainer.git /home/vscode/settings"
 RUN su vscode -c "\cp -RT -f /home/vscode/settings/devcontainer/dotfiles /home/vscode"
 
 ######################################
