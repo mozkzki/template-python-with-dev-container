@@ -1,0 +1,25 @@
+{
+    // See https://go.microsoft.com/fwlink/?LinkId=733558
+    // for the documentation about the tasks.json format
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "label": "lint",
+            "detail": "run lint.",
+            "type": "shell",
+            "command": "make lint"
+        },
+        {
+            "label": "ut",
+            "detail": "run unit test.",
+            "type": "shell",
+            "command": "make ut"
+        },
+        {
+            "label": "start",
+            "detail": "run program.",
+            "type": "shell",
+            "command": "make start"
+        }
+    ]
+}
