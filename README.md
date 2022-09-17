@@ -5,9 +5,9 @@ Python開発用テンプレート。VSCodeのRemote Containers での開発用�
 #### ファイル構成
 
 - `.devcontainer/devcontainer.json`
-    - Remote Containersの設定：[MSのベース](https://github.com/microsoft/vscode-dev-containers/tree/v0.191.0/containers/python-3)を修正
+    - Remote Containersの設定：[公式のベース](https://github.com/microsoft/vscode-dev-containers/tree/v0.191.0/containers/python-3)を修正
 - `.devcontainer/Dockerfile`
-    - イメージのビルド設定：[MSのベース](https://github.com/microsoft/vscode-dev-containers/blob/v0.191.0/containers/python-3/.devcontainer/base.Dockerfile)を修正
+    - イメージのビルド設定：[公式のベース](https://github.com/microsoft/vscode-dev-containers/blob/v0.191.0/containers/python-3/.devcontainer/base.Dockerfile)を修正
 - `.devcontainer/dotfiles`
     - zshの設定等
 
@@ -28,6 +28,7 @@ Python開発用テンプレート。VSCodeのRemote Containers での開発用�
 | linter | [flake8](https://flake8.pycqa.org/en/latest/) |
 | formatter | [black](https://github.com/psf/black) |
 | type check | [mypy](https://mypy.readthedocs.io/en/stable/) |
+
 ※ コンテナなのでPythonの仮想環境 (PoetryとかPipenvとか) は使わない
 
 ## 導入方法
@@ -58,8 +59,6 @@ python ./main/my/app.py
 # もしくは
 make start
 ```
-
-※ Poetryはタスクランナー機能がないのでmakeで代用
 
 ### Unit Test
 
