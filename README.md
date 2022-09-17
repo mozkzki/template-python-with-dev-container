@@ -1,50 +1,47 @@
 # template-python-with-dev-container
 
-- Python開発用テンプレート
-  - Dockerコンテナでの開発版
-  - VSCode Remote Containerの使用を想定
-    - 設定ファイル: `.devcontainer/devcontainer.json`
-  - Pythonの仮想環境 (PoetryとかPipenvとか)は使わない
+Python開発用テンプレート。VSCodeのRemote Containers での開発用。
 
-| ツール種類 | ツール名 |
+#### ファイル構成
+
+- `.devcontainer/devcontainer.json`
+    - Remote Containersの設定：[MSのベース](https://github.com/microsoft/vscode-dev-containers/tree/v0.191.0/containers/python-3)を修正
+- `.devcontainer/Dockerfile`
+    - イメージのビルド設定：[MSのベース](https://github.com/microsoft/vscode-dev-containers/blob/v0.191.0/containers/python-3/.devcontainer/base.Dockerfile)を修正
+- `.devcontainer/dotfiles`
+    - zshの設定等
+
+#### Shell環境
+
+| kind | tool |
 |--|--|
-| パッケージ管理 | [pip](https://kurozumi.github.io/pip/index.html) |
-| テストフレームワーク | [pytest](https://docs.pytest.org/en/6.2.x/) |
-| リンター | [flake8](https://flake8.pycqa.org/en/latest/) |
-| フォーマッター | [black](https://github.com/psf/black) |
-| 型チェック | [mypy](https://mypy.readthedocs.io/en/stable/) |
+| shell | zsh |
+| zsh framework | prezto |
+| prompt | powerlevel10k |
 
-なお、devcontainerはMSの[これ](https://github.com/microsoft/vscode-dev-containers/tree/v0.191.0/containers/python-3)がベース。
+#### Python環境
 
-## 開発環境
+| kind | tool |
+|--|--|
+| package management | [pip](https://kurozumi.github.io/pip/index.html) |
+| testing framework | [pytest](https://docs.pytest.org/en/6.2.x/) |
+| linter | [flake8](https://flake8.pycqa.org/en/latest/) |
+| formatter | [black](https://github.com/psf/black) |
+| type check | [mypy](https://mypy.readthedocs.io/en/stable/) |
+※ コンテナなのでPythonの仮想環境 (PoetryとかPipenvとか) は使わない
 
-### 導入
+## 導入方法
 
-1. VSCodeに機能拡張「Remote - Containers」をインストール
-1. `git clone git@github.com:mozkzki/template-python-with-dev-container.git hoge` (※hogeはチェックアウト先ディレクトリ)
-1. このプロジェクトを開く
+※M1 Macでのみ動確
+
+1. ローカルにコンテナ環境を用意 (Macだと[`Rancher Desktop`](https://rancherdesktop.io/)が[簡単](https://knqyf263.hatenablog.com/entry/2022/02/01/225546))
+1. VSCodeに「[Remote - Containers](https://marketplace.visualstudio.com/items?itemName=ms-vscode-remote.remote-containers)」プラグインをインストール
+1. `git clone`してVSCodeでプロジェクトを開く
 1. VSCodeの画面左下の緑ゾーンをクリック
 1. `Reopen in Container`をクリック
-1. コンテナ内でVSCodeが開いたら準備完了 (初回はビルドがあるので時間かかる)
-
-### Shell
-
-- zsh, preztoセットアップ済み
-- プロンプトでpowerlevel10kを使う場合は下記で設定する
-
-```zsh
-prompt -s powerlevel10k
-p10k configure
-```
-
-### dotfiles
-
-- 下記を配置済み
-  - https://github.com/mozkzki/settings/tree/master/devcontainer/dotfiles
+1. コンテナ内でVSCodeが開いたら準備完了 (初回は時間かかる)
 
 ## 開発方法
-
-※ 以降のコマンドは、devcontainer (Dockerコンテナ) を起動し、そこで実行
 
 ### とりあえず一通り動確したい時
 
@@ -54,7 +51,7 @@ make ut
 make start
 ```
 
-### 実行
+### Run
 
 ```sh
 python ./main/my/app.py
@@ -100,9 +97,8 @@ pytest -v --capture=no --cov-config .coveragerc --cov=main --cov-report=xml --co
 make ut
 ```
 
-VSCodeでコードカバレッジを見るには、Coverage Gutters (プラグイン) を入れる。表示されない場合は、コマンドパレットで`Coverage Gutters: Display Coverage`する。
+VSCodeでコードカバレッジを見るにはプラグイン(Coverage Gutters)が必要(導入済み)。表示されない場合は、コマンドパレットで`Coverage Gutters: Display Coverage`する。
 
-- [VSCodeでカバレッジを表示する（pytest-cov）](https://zenn.dev/tyoyo/articles/769df4b7eb9398)
 
 ### Lint
 
@@ -112,13 +108,12 @@ flake8 --max-line-length=100 --ignore=E203,W503 ./main
 make lint
 ```
 
-### 依存パッケージ追加
+### 依存パッケージの追加方法
 
-下記ファイルに追記して`Rebuild Container`する。
+1. `requirements.txt`に追記
+1. `Rebuild Container`
 
-- `requirements.txt`
-
-`pip install`で追加すると下記の警告が出る場合がある。`--upgrade`すると`bin`以下が消えて既に導入済みのパッケージが使えなくなる。このため上記手順が無難。
+注意：`pip install`で追加すると下記警告が出る場合がある。`--upgrade`すると`bin`以下が消えて既に導入済みのパッケージが使えなくなる。このため上記手順が無難。
 
 ```zsh
 WARNING: Target directory /home/../. already exists. Specify --upgrade to force replacement.
@@ -128,7 +123,8 @@ WARNING: Target directory /home/../. already exists. Specify --upgrade to force 
 
 - [【2020年1月】令和だし本格的にVSCodeのRemote Containerで、爆速の"開発コンテナ"始めよう - Qiita](https://qiita.com/koinori/items/084a0770c1f9e72e0c14)
 - [VSCode Remote Containersに自分のdotfilesを持ち込む - Kesinの知見置き場](https://kesin.hatenablog.com/entry/2020/07/10/083000)
-  - Remote Container拡張の設定でdotfilesをコピーする機能があるが使ってない
-  - Dockerfileで`git clone`している
+    - Remote Container拡張の設定でdotfilesをコピーする機能があるが使ってない
+    - Dockerfileで`COPY`している
 - [Configuration — pytest documentation](https://docs.pytest.org/en/6.2.x/customize.html)
 - [Usage and Invocations — pytest documentation](https://docs.pytest.org/en/6.2.x/usage.html)
+- [VSCodeでカバレッジを表示する（pytest-cov）](https://zenn.dev/tyoyo/articles/769df4b7eb9398)
